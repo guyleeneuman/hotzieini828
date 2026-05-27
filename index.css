@@ -10,9 +10,12 @@ body {
 }
 
 html, body {
+ html, body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  width: 100%;
+}
 }
 
 @font-face {
@@ -40,7 +43,7 @@ html, body {
 }
 .box {
     position: absolute;
-    top: 80%;
+    top: 70%;
     left: 50%;
     width: 95vw;
     transform: translate(-50%);
