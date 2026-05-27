@@ -9,6 +9,12 @@ body {
     font-family: "secular";
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
 @font-face {
     font-family: "secular";
     src: url("assets/fonts/Reisinger-Michal-Light.otf");
@@ -37,15 +43,15 @@ body {
     top: 80%;
     left: 50%;
     width: 100vw;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%);
 }
 
 .byGuylee{
     position: absolute;
     left: 60%;
-    top:95%;
+    top: 95%;
     width: 90vw;
-    transform: translateX( -50%);
+    transform: translate(-50%, -50%);
     z-index: 1000000;
 }
 
@@ -228,14 +234,19 @@ font-family: "secular";
 /* SEARCH AREA */
 .searchBox {
   position: absolute;
-   width: 50vw;
   top: 50%;
-  left:65%;
-  transform: translateX(-50%);
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  width: 50vw;
   direction: rtl;
 
   display: flex;
   gap: 2vw;
+
+  justify-content: center;
+  align-items: center;
 }
 
 .searchInput {
@@ -319,18 +330,21 @@ font-family: "secular";
 }
 
 .errorBox {
+  position: absolute;
   color: #000000;
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 1.5rem;
 }
 
 .ordersContainer {
   position: absolute;
-  top: 35%;
+  top: 25%;
   left: 50%;
   transform: translateX(-50%);
   direction: rtl;
 
-  width: 75vw;
+  width: 85vw;
   max-height: 55vh;
   overflow-y: auto;
 
@@ -364,7 +378,6 @@ font-family: "secular";
 .orderName {
   font-size: 1.3rem;
   font-family: "secular";
-  font-weight: bold;
   color: #000;
 }
 
@@ -490,7 +503,7 @@ font-family: "secular";
 /* שם הזמנה */
 .resultName {
   font-size: 2rem;
-  color: #D3EAEF;
+  color: #000000;
   font-family: "secular";
   margin-bottom: 20px;
 }
