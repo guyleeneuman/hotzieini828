@@ -42,7 +42,7 @@ html, body {
     position: absolute;
     top: 80%;
     left: 50%;
-    width: 100vw;
+    width: 95vw;
     transform: translate(-50%);
 }
 
