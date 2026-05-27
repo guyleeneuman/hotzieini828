@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>חיפוש הזמנה</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+  <img class="navbar" src="assets/logos/logos.png">
+  <img class="title" src="assets/titles/appT.png">
+  <div class="byGuylee">פותח על ידי רב"ט גיא-לי נוימן/גפ"ה ביסל"ח</div>
+
+  <!-- SEARCH BOX -->
+<div class="searchBox" id="searchBox">
+
+  <input 
+    id="searchInput"
+    class="searchInput"
+    placeholder="הקלד שם הזמנה"
+  >
+
+  <button class="searchBtn" onclick="searchOrder()">
+    חפש
+  </button>
+
+</div>
+
+  <!-- RESULT -->
+  <div id="result" class="resultBox"></div>
+
+  <!-- FIREBASE -->
+  <script type="module" src="main.js"></script>
+
+  <script type="module">
+
+   async function searchOrder() {
+
+  const name = document
+    .getElementById("searchInput")
+    .value
+    .trim();
+
+  const resultDiv =
+    document.getElementById("result");
+
+  const searchBox =
+    document.getElementById("searchBox");
+
+  const orders =
+    await window.getOrders();
+
+  const order =
+    orders.find(o => o.name === name);
+
+  // לא נמצא
+  if (!order) {
+
+    resultDiv.innerHTML = `
+      <div class="errorBox">
+        לא נמצאה הזמנה
+      </div>
+    `;
+
+    return;
+  }
+
+  // מסתיר חיפוש
+  searchBox.style.display = "none";
+
+  let img = "";
+
+  if (order.status === "preparing") {
+    img = "assets/elements/inProsses.png";
+  } else {
+    img = "assets/elements/ready.png";
+  }
+
+  // כפתור מחיקה רק אם מוכנה
+  const resetButton =
+    order.status === "ready"
+    ? `
+      <button
+        class="resetBtn"
+        onclick="resetOrder('${order.id}')"
+      >
+        אספתי את ההזמנה
+      </button>
+    `
+    : "";
+
+  resultDiv.innerHTML = `
+    <div class="orderResult">
+
+      <div class="resultName">
+        ${order.name}
+      </div>
+
+      <img
+        src="${img}"
+        class="resultImage"
+      >
+
+      ${resetButton}
+
+    </div>
+  `;
+}
+
+// מחיקת הזמנה
+async function resetOrder(id) {
+
+  await window.deleteOrder(id);
+
+  document.getElementById("result")
+    .innerHTML = `
+      <div class="errorBox">
+        ההזמנה נאספה בהצלחה
+      </div>
+    `;
+}
+
+window.searchOrder = searchOrder;
+window.resetOrder = resetOrder;
+
+    // make global
+    window.searchOrder = searchOrder;
+
+  </script>
+
+</body>
+</html>

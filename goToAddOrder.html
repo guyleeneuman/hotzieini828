@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta 
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    מעקב חבילות הוצל"א
+  </title>
+
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div class="byGuylee">פותח על ידי רב"ט גיא-לי נוימן/גפ"ה ביסל"ח</div>
+
+  <img 
+    class="navbar"
+    src="assets/logos/logos.png"
+  >
+
+  <img 
+    class="title"
+    src="assets/titles/appT.png"
+  >
+
+  <img 
+    class="box"
+    src="assets/elements/ordersImg.png"
+  >
+
+  <!-- FORM -->
+  <div class="trackingBox">
+
+    <!-- NAME -->
+    <div class="fieldBox">
+
+      <div class="fieldTitle">
+        שם הזמנת הוצל״א
+      </div>
+
+      <input 
+        type="text"
+        class="trackingInput"
+        id="orderInput"
+        placeholder="הקלד שם הזמנה..."
+      >
+
+    </div>
+
+    <!-- STATUS -->
+    <div class="fieldBox">
+
+      <div class="fieldTitle">
+        סטטוס הזמנה
+      </div>
+
+      <div class="statusButtons">
+
+        <button 
+          class="statusBtn1 active"
+          id="preparingBtn"
+        >
+          בהכנה
+        </button>
+
+        <button 
+          class="statusBtn1"
+          id="readyBtn"
+        >
+          מוכנה
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ADD BUTTON -->
+  <button 
+    class="addOrderBtn"
+    id="addOrderBtn"
+    disabled
+  >
+    הוספת הזמנה חדשה
+  </button>
+
+  <!-- FIREBASE -->
+  <script type="module" src="main.js"></script>
+
+  <script type="module">
+
+    const preparingBtn =
+      document.getElementById("preparingBtn");
+
+    const readyBtn =
+      document.getElementById("readyBtn");
+
+    const addOrderBtn =
+      document.getElementById("addOrderBtn");
+
+    const input =
+      document.getElementById("orderInput");
+
+    let statusChosen = true;
+
+    // preparing
+    preparingBtn.addEventListener("click", () => {
+
+      preparingBtn.classList.add("active");
+
+      readyBtn.classList.remove("active");
+
+      checkForm();
+    });
+
+    // ready
+    readyBtn.addEventListener("click", () => {
+
+      readyBtn.classList.add("active");
+
+      preparingBtn.classList.remove("active");
+
+      checkForm();
+    });
+
+    // input
+    input.addEventListener("input", checkForm);
+
+    // form validation
+    function checkForm() {
+
+      if (input.value.trim() !== "") {
+
+        addOrderBtn.disabled = false;
+
+        addOrderBtn.classList.add("enabled");
+
+      } else {
+
+        addOrderBtn.disabled = true;
+
+        addOrderBtn.classList.remove("enabled");
+      }
+    }
+
+    // add order
+    addOrderBtn.addEventListener("click", async () => {
+
+      const orderName =
+        input.value.trim();
+
+      const status =
+        preparingBtn.classList.contains("active")
+        ? "preparing"
+        : "ready";
+
+      // firebase add
+      await window.addOrder(
+        orderName,
+        status
+      );
+
+      // reset
+      input.value = "";
+
+      preparingBtn.classList.add("active");
+
+      readyBtn.classList.remove("active");
+
+      addOrderBtn.disabled = true;
+
+      addOrderBtn.classList.remove("enabled");
+
+      alert("הזמנה נוספה");
+    });
+
+  </script>
+
+  <style>
+
+    .title {
+      width: 40%;
+      top: 17%;
+    }
+
+  </style>
+
+</body>
+</html>

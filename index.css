@@ -1,0 +1,526 @@
+body {
+    margin: 0;
+    min-height: 100vh;
+    background-image: url("assets/background/bg.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    direction: ltr;
+    font-family: "secular";
+}
+
+@font-face {
+    font-family: "secular";
+    src: url("assets/fonts/Reisinger-Michal-Light.otf");
+}
+@font-face {
+    font-family: "lumina";
+    src: url("assets/fonts/Lunasima-Regular.ttf");
+}
+.navbar {
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    width: 95%;
+    transform: translate(-50%, -50%);
+}
+
+.title {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    width: 45vw;
+    transform: translate(-50%, -50%);
+}
+.box {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    width: 100vw;
+    transform: translate(-50%, -50%);
+}
+
+.byGuylee{
+    position: absolute;
+    left: 60%;
+    top:95%;
+    width: 90vw;
+    transform: translateX( -50%);
+    z-index: 1000000;
+}
+
+.addNewOrder,
+.allOrders {
+    cursor: pointer;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    
+    /* עיצוב הכפתור */
+    padding: 10px 20px;
+    border-radius: 50px;
+     background: rgba(233, 173, 97, 0.7);
+    color: #D3EAEF;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-align: center;
+    border: 2px solid rgba(255,255,255,0.2);
+    width: 70vw;
+    /* UX */
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    touch-action: manipulation;
+
+    /* אנימציה */
+    transition: transform 0.3s ease, 
+                box-shadow 0.3s ease, 
+                background 0.3s ease;
+}
+
+/* מיקום */
+.addNewOrder {
+    top: 40%;
+}
+
+.allOrders {
+    top: 60%;
+}
+
+/* Hover */
+.addNewOrder:hover,
+.allOrders:hover {
+    transform: translateX(-50%) scale(1.08);
+    box-shadow: 0 0 20px rgba(255,255,255,0.4);
+    background: #D3EAEF;
+     color:rgb(233, 174, 97);
+}
+
+/* לחיצה */
+.addNewOrder:active,
+.allOrders:active {
+    transform: translateX(-50%) scale(0.95);
+}
+
+/* Main card */
+.trackingBox {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 75vw;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10vw;
+}
+
+/* Each separate field */
+.fieldBox {
+  background: rgba(233, 173, 97, 0.7);
+  backdrop-filter: blur(4px);
+
+  border-radius: 35px;
+  font-weight: 800;
+  padding: 1.5vw;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 1vw;
+}
+
+.fieldTitle {
+  color: #000000;
+  font-size: 1.8rem;
+  text-align: center;
+  font-family: "secular";
+  /* text border */
+}
+
+/* Input */
+.trackingInput {
+  width: 100%;
+  border: none;
+  outline: none;
+  direction: rtl;
+  background: rgba(177, 106, 0, 0.158);
+
+  border-radius: 22px;
+
+  padding: 1vw;
+
+  color: #D3EAEF;
+  font-size: 1.7rem;
+  text-align: center;
+  font-family: "lumina";
+  box-sizing: border-box;
+}
+
+.trackingInput::placeholder {
+  color: #D3EAEF;
+  opacity: 0.8;
+}
+
+/* Status buttons */
+.statusButtons {
+  display: flex;
+  gap: 2vw;
+  width: 100%;
+}
+
+.statusBtn1 {
+  flex: 1;
+
+  border: none;
+  cursor: pointer;
+
+  border-radius: 25px;
+
+  padding: 2vw;
+
+  font-size: 1.4rem;
+  font-weight: bold;
+font-family: "lumina";
+  transition: 0.3s ease;
+
+  background: rgba(177, 106, 0, 0.158);
+
+  color: #D3EAEF;
+}
+
+/* Selected button style */
+.statusBtn1.active {
+  background: #D3EAEF;
+  color: #E9AD61;
+}
+
+.addOrderBtn {
+  position: absolute;
+  top: 78%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background:  #D3EAEF;
+  color: #E9AD61;
+font-family: "secular";
+  border: none;
+  border-radius: 30px;
+  width: 60vw;
+  padding: 1vw 2vw;
+
+  font-size: 1.8rem;
+  cursor: pointer;
+
+  opacity: 0.5;
+  transition: 0.3s ease;
+}
+
+.addOrderBtn.enabled {
+  opacity: 1;
+}
+
+.addOrderBtn:disabled {
+  cursor: not-allowed;
+}
+
+/* SEARCH AREA */
+.searchBox {
+  position: absolute;
+   width: 50vw;
+  top: 50%;
+  left:65%;
+  transform: translateX(-50%);
+  direction: rtl;
+
+  display: flex;
+  gap: 2vw;
+}
+
+.searchInput {
+  flex: 1;
+  flex: none;
+  width: 250px;
+  border: none;
+  outline: none;
+
+  border-radius: 25px;
+
+  padding: 1.5vw;
+
+  font-size: 1.5rem;
+  text-align: center;
+
+  background: rgba(177, 106, 0, 0.158);
+  color: #D3EAEF;
+  font-family: "lumina";
+}
+
+.searchBtn {
+  border: none;
+  cursor: pointer;
+
+  border-radius: 25px;
+
+  padding: 1.5vw 3vw;
+
+  font-size: 1.5rem;
+
+  background: #D3EAEF;
+  color: #E9AD61;
+
+  font-family: "secular";
+}
+
+/* RESULT CARD */
+.resultBox {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 70vw;
+  text-align: center;
+}
+
+.orderCard {
+  background: rgba(233, 173, 97, 0.7);
+  backdrop-filter: blur(4px);
+
+  border-radius: 35px;
+
+  padding: 2vw;
+
+  color: #000;
+  font-family: "secular";
+}
+
+.statusImg {
+  width: 120px;
+  margin-top: 1vw;
+}
+
+.closeBtn {
+  margin-top: 2vw;
+
+  border: none;
+  cursor: pointer;
+
+  padding: 1vw 7vw;
+
+  border-radius: 25px;
+
+  background: #D3EAEF;
+  color: #E9AD61;
+
+  font-size: 1.3rem;
+  font-family: "secular";
+}
+
+.errorBox {
+  color: #000000;
+  font-size: 1.5rem;
+}
+
+.ordersContainer {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translateX(-50%);
+  direction: rtl;
+
+  width: 75vw;
+  max-height: 55vh;
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* כרטיס הזמנה */
+.orderItem {
+  background: rgba(233, 173, 97, 0.75);
+  backdrop-filter: blur(6px);
+
+  border-radius: 30px;
+  padding: 10px 22px;
+
+  display: flex;
+  flex-direction: column;
+
+  transition: 0.3s;
+}
+
+/* שורה עליונה */
+.orderTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* שם הזמנה */
+.orderName {
+  font-size: 1.3rem;
+  font-family: "secular";
+  font-weight: bold;
+  color: #000;
+}
+
+/* צד שמאל */
+.orderActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* כפתור סטטוס */
+.statusBtn {
+  background: #D3EAEF;
+  color: #E9AD61;
+
+  border-radius: 999px;
+  padding: 10px 18px;
+
+  font-family: "lumina";
+  font-size: 1.3rem;
+
+}
+/* כפתור עריכה - בלי רקע */
+.editBtn {
+  border: none;
+  background: transparent;
+
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 0;
+  transition: 0.25s;
+}
+
+/* אייקון גוגל */
+.editBtn svg {
+  width: 7vw;
+  height: 5vh;
+
+  fill: #D3EAEF; /* תכלת */
+
+  transition: 0.25s ease;
+}
+
+/* hover */
+.editBtn:hover {
+  transform: scale(1.12);
+}
+
+.editBtn:hover svg {
+  transform: rotate(-10deg);
+  fill: #b7dbe2; /* תכלת קצת יותר בהיר */
+}
+/* אזור עריכה */
+.orderEdit {
+  margin-top: 15px;
+  font-family: "lumina";
+  display: none;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.orderItem.open .orderEdit {
+  display: flex;
+}
+
+/* כפתור סטטוס */
+.statusOption {
+  border: none;
+  cursor: pointer;
+
+  min-width: 110px;
+  padding: 12px 22px;
+
+  border-radius: 999px;
+
+  font-family: "lumina";
+  font-size: 1.3rem;
+  font-weight: bold;
+
+  transition: 0.25s ease;
+
+  /* ברירת מחדל - צהוב */
+  background: #E9AD61;
+  color: #D3EAEF;
+
+
+}
+
+/* נבחר כרגע */
+.statusOption.active {
+  background: #D3EAEF;
+  color: #E9AD61;
+}
+
+/* hover */
+.statusOption:hover {
+  transform: scale(1.05);
+}
+
+/* אחרי חיפוש */
+.resultBox {
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 100vw;
+  text-align: center;
+}
+
+/* בלי רקע בכלל */
+.orderResult {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* שם הזמנה */
+.resultName {
+  font-size: 2rem;
+  color: #D3EAEF;
+  font-family: "secular";
+  margin-bottom: 20px;
+}
+
+/* התמונה במרכז */
+.resultImage {
+  width: 300px;
+  max-width: 70vw;
+}
+
+/* כפתור איפוס */
+.resetBtn {
+  margin-top: 30px;
+
+  border: none;
+  cursor: pointer;
+
+  border-radius: 999px;
+
+  padding: 14px 30px;
+
+  background: #D3EAEF;
+  color: #E9AD61;
+
+  font-family: "secular";
+  font-size: 1.3rem;
+
+  transition: .25s;
+}
+
+.resetBtn:hover {
+  transform: scale(1.06);
+}

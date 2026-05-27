@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>מעקב חבילות הוצל"א</title>
+
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+  <img class="navbar" src="assets/logos/logos.png">
+  <img class="title" src="assets/titles/appT.png">
+    <div class="byGuylee">פותח על ידי רב"ט גיא-לי נוימן/גפ"ה ביסל"ח</div>
+
+  <!-- ORDERS -->
+  <div 
+    class="ordersContainer"
+    id="ordersContainer"
+  ></div>
+
+  <!-- FIREBASE -->
+  <script type="module" src="main.js"></script>
+
+  <script type="module">
+
+    // load all orders
+    async function loadOrders() {
+
+      const container =
+        document.getElementById("ordersContainer");
+
+      // get firebase orders
+      const orders = await window.getOrders();
+
+      container.innerHTML = "";
+
+      // no orders
+      if (orders.length === 0) {
+
+        container.innerHTML = `
+          <div class="errorBox">
+            אין הזמנות
+          </div>
+        `;
+
+        return;
+      }
+
+  orders.forEach((order) => {
+
+  const statusText =
+    order.status === "preparing"
+    ? "בהכנה"
+    : "מוכנה";
+
+  container.innerHTML += `
+
+    <div 
+      class="orderItem"
+      id="order-${order.id}"
+    >
+
+      <div class="orderTop">
+
+        <!-- שם הזמנה -->
+        <div class="orderName">
+          ${order.name}
+        </div>
+
+        <!-- צד שמאל -->
+        <div class="orderActions">
+
+          <div class="statusBtn">
+            ${statusText}
+          </div>
+<button
+  class="editBtn"
+  onclick="toggleEdit('${order.id}')"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" 
+       viewBox="0 -960 960 960">
+    <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/>
+  </svg>
+</button>
+
+        </div>
+
+      </div>
+
+      <!-- עריכת סטטוס -->
+    <div class="orderEdit">
+
+  <button 
+    class="statusOption ${
+      order.status === "preparing" ? "active" : ""
+    }"
+    onclick="setStatus('${order.id}', 'preparing')"
+  >
+    בהכנה
+  </button>
+
+  <button 
+    class="statusOption ${
+      order.status === "ready" ? "active" : ""
+    }"
+    onclick="setStatus('${order.id}', 'ready')"
+  >
+    מוכנה
+  </button>
+
+</div>
+  `;
+});
+    }
+
+    // open edit
+    function toggleEdit(id) {
+
+      const item =
+        document.getElementById(`order-${id}`);
+
+      item.classList.toggle("open");
+    }
+
+    // update firebase status
+    async function setStatus(id, status) {
+
+      await window.updateStatus(id, status);
+
+      loadOrders();
+    }
+
+    // globals
+    window.toggleEdit = toggleEdit;
+    window.setStatus = setStatus;
+
+    // start
+    loadOrders();
+
+  </script>
+
+</body>
+</html>
